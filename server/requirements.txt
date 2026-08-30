@@ -1,0 +1,6 @@
+openai
+pypdf
+fastapi
+dotenv
+upstash_redis
+python-multipart==0.0.12
