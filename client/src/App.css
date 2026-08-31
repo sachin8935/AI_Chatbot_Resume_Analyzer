@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
+:root { --ink: #202522; --muted: #778078; --paper: #f4f1eb; --line: #d9d8d1; --green: #b9d7c2; --deep-green: #315343; --coral: #db7257; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+.loading-screen { min-height: 100vh; display: grid; place-content: center; gap: 12px; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 13px; }
+.loader { width: 18px; height: 18px; border: 2px solid var(--line); border-top-color: var(--coral); border-radius: 50%; animation: spin .8s linear infinite; margin: auto; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.auth-shell { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr) 36%; background: var(--paper); }
+.auth-card { width: min(470px, 80%); align-self: center; justify-self: center; padding: 40px 0; }
+.brand-mark { display: grid; place-items: center; width: 42px; height: 42px; background: var(--deep-green); color: var(--paper); font: 500 12px 'DM Mono', monospace; letter-spacing: 1px; }
+.brand-mark.small { width: 30px; height: 30px; font-size: 9px; }
+.eyebrow { color: var(--coral); font: 500 11px 'DM Mono', monospace; letter-spacing: 1.6px; margin: 22px 0 18px; }
+h1, h2, p { margin-top: 0; }
+.auth-card h1 { font-size: clamp(42px, 5vw, 70px); line-height: .98; letter-spacing: -2px; margin-bottom: 24px; }
+em { color: var(--coral); font-family: 'Playfair Display', serif; font-weight: 600; }
+.auth-copy { max-width: 360px; color: var(--muted); line-height: 1.7; font-size: 15px; }
+.email-form { display: grid; gap: 10px; margin-top: 48px; }
+.email-form label { font: 500 11px 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 1px; }
+.email-form input, .chat-form input { border: 1px solid var(--line); background: transparent; color: var(--ink); outline: none; }
+.email-form input { padding: 15px 16px; }
+.email-form input:focus, .chat-form input:focus { border-color: var(--deep-green); }
+.email-form button, .prepare-button { border: 0; background: var(--deep-green); color: white; padding: 16px; text-align: left; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+button:disabled { cursor: not-allowed; opacity: .5; }
+.privacy-note, .chat-disclaimer, .aside-footer { color: var(--muted); font: 11px 'DM Mono', monospace; line-height: 1.6; }
+.privacy-note { margin-top: 18px; }
+.auth-aside { background: var(--deep-green); color: var(--paper); padding: 48px; display: flex; flex-direction: column; justify-content: flex-end; background-image: linear-gradient(135deg, transparent 49%, rgba(185,215,194,.12) 50%, transparent 51%); }
+.auth-aside span { color: var(--green); font: 12px 'DM Mono', monospace; }
+.auth-aside p { font-size: clamp(28px, 4vw, 54px); line-height: 1.05; margin: 18px 0 8px; letter-spacing: -1px; }
+.auth-aside strong { color: var(--green); font-family: 'Playfair Display', serif; font-style: italic; }
+.error-message { color: #a94331; font-size: 12px; margin: 16px 0 0; }
+.app-shell { min-height: 100vh; padding: 0 5vw; }
+.topbar { height: 78px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
+.brand-lockup { display: flex; align-items: center; gap: 12px; font: 500 12px 'DM Mono', monospace; }
+.session-status, .chat-count { color: var(--muted); font: 11px 'DM Mono', monospace; }
+.status-dot { width: 7px; height: 7px; background: #6aa478; display: inline-block; border-radius: 50%; margin-right: 8px; }
+.workspace { display: grid; grid-template-columns: 310px minmax(0, 1fr); min-height: calc(100vh - 78px); }
+.setup-panel { border-right: 1px solid var(--line); padding: 30px 36px 28px 0; display: flex; flex-direction: column; }
+.setup-panel .eyebrow { margin-top: 0; margin-bottom: 16px; }
+.setup-panel h2 { font-size: 29px; line-height: 1.08; letter-spacing: -1px; }
+.step-list { margin: 30px 0 34px; display: grid; gap: 24px; }
+.step { display: flex; gap: 14px; color: #b0b2aa; }
+.step span { font: 11px 'DM Mono', monospace; padding-top: 2px; }
+.step strong, .step small { display: block; }
+.step strong { font-size: 13px; color: inherit; }
+.step small { color: var(--muted); margin-top: 4px; font-size: 11px; }
+.step.complete { color: var(--deep-green); }
+.step.active span { color: var(--coral); }
+.upload-area { margin-top: auto; }
+.upload-area input { display: none; }
+.dropzone { width: 100%; min-height: 120px; border: 1px dashed #b9b9b0; background: rgba(255,255,255,.24); color: var(--ink); display: grid; place-items: center; align-content: center; gap: 5px; }
+.dropzone:hover { border-color: var(--coral); background: rgba(255,255,255,.45); }
+.upload-icon { color: var(--coral); font-size: 24px; line-height: 1; }
+.dropzone strong { font-size: 13px; }
+.dropzone small { color: var(--muted); font: 10px 'DM Mono', monospace; max-width: 210px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.prepare-button { width: 100%; margin-top: 8px; padding: 12px 14px; font-size: 12px; }
+.aside-footer { margin: 28px 0 0; }
+.chat-panel { padding: 72px 0 20px 7vw; display: flex; flex-direction: column; min-width: 0; }
+.chat-heading { display: flex; justify-content: space-between; align-items: end; gap: 20px; border-bottom: 1px solid var(--line); padding-bottom: 22px; }
+.chat-heading .eyebrow { margin: 0 0 12px; }
+.chat-heading h1 { font-size: clamp(27px, 3vw, 42px); letter-spacing: -1.5px; margin: 0; }
+.messages { flex: 1; overflow: auto; padding: 40px 2vw 30px 0; min-height: 340px; max-height: calc(100vh - 290px); }
+.empty-state { text-align: center; padding-top: 8vh; color: var(--muted); }
+.quote-mark { color: var(--coral); font: 74px 'Playfair Display', serif; height: 50px; }
+.empty-state p { font: italic 20px 'Playfair Display', serif; line-height: 1.35; color: var(--deep-green); }
+.empty-state span { font: 10px 'DM Mono', monospace; }
+.message { max-width: 650px; padding: 0 0 27px; margin-bottom: 28px; border-bottom: 1px solid var(--line); }
+.message.user { margin-left: auto; text-align: right; }
+.message-label { color: var(--coral); font: 10px 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 1px; }
+.message p { margin: 8px 0 0; line-height: 1.65; font-size: 15px; white-space: pre-wrap; }
+.message.assistant p { font-size: 17px; }
+.typing { display: inline-flex; gap: 4px; }
+.typing i { width: 5px; height: 5px; background: var(--coral); border-radius: 50%; animation: blink 1s infinite; }
+.typing i:nth-child(2) { animation-delay: .2s; }.typing i:nth-child(3) { animation-delay: .4s; }
+@keyframes blink { 50% { opacity: .25; } }
+.chat-form { display: flex; border: 1px solid var(--line); background: rgba(255,255,255,.3); }
+.chat-form input { flex: 1; padding: 17px; border: 0; min-width: 0; }
+.chat-form button { width: 54px; border: 0; background: var(--coral); color: white; font-size: 20px; }
+.chat-disclaimer { text-align: center; margin: 12px 0 0; }
+@media (max-width: 760px) {
+	.auth-shell { display: block; }.auth-card { width: 86%; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }.auth-aside { display: none; }
+	.app-shell { padding: 0 20px; }.topbar { height: 66px; }.workspace { display: block; }.setup-panel { border-right: 0; padding: 28px 0 24px; border-bottom: 1px solid var(--line); }.setup-panel h2 { font-size: 25px; }.step-list { grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 24px 0; }.step { gap: 7px; }.step strong { font-size: 11px; }.step small { font-size: 9px; }.upload-area { margin-top: 0; }.dropzone { min-height: 86px; }.aside-footer { display: none; }.chat-panel { padding: 34px 0 20px; min-height: 520px; }.chat-heading { align-items: start; flex-direction: column; gap: 12px; }.messages { min-height: 260px; max-height: none; padding-top: 30px; }.empty-state { padding-top: 6vh; }.chat-heading h1 { font-size: 29px; }.chat-count { align-self: end; margin-top: -28px; }
+}

@@ -23,3 +23,12 @@ async def create_user_session(user:User):
         "data":data
     }
 
+@router.post('/validate-session',status_code=200)
+async def validate_session(session_id):
+    if redis.get(session_id) is None:
+        return{
+            "message":"user not found"
+        }
+    return{
+        "data": redis.get(session_id)
+    }

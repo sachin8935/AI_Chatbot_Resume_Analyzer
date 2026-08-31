@@ -1,6 +1,7 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 from fastapi import APIRouter , UploadFile , File , HTTPException , Form
+from fastapi.responses import StreamingResponse
 from io import BytesIO
 from pypdf import PdfReader
 from pydantic import BaseModel
@@ -33,7 +34,7 @@ async def get_chat_response(file: UploadFile = File(...), session_id: str = Form
             pdf_data.append(page_text)
     chat_list=[
     {'role':'system','content':'You are a senior software enginner and can answer any questions from the resume'},
-    {'role':'user','content':pdf_data[0]}
+    {'role':'user','content':'\n'.join(pdf_data)}
     ]
     redis.set(session_id, json.dumps(chat_list),keepttl=True)
 
@@ -52,14 +53,25 @@ async def chatwithAI(user:chatUser):
     chat = client.responses.create(
         model='gpt-5-mini',
         input=chat_history,
-        max_output_tokens=100
+        stream=True
     )
-    response = chat.output_text
-    feed_data = {'role':'assistant','content':response}
-    chat_history.append(feed_data)
-    redis.set(user.session_id,chat_history,keepttl=True)
+    def generate():
+        full_response = ""
+        for event in chat:
+            if event.type == "response.output_text.delta":
+                delta = event.delta
+                full_response += delta
+                yield delta
+        chat_history.append({
+            "role": "assistant",
+            "content": full_response
+        })
+        redis.set(
+            user.session_id,
+            json.dumps(chat_history)
+        )
 
-    return{
-        "status":"success",
-        "data":response
-    }
+    return StreamingResponse(
+        generate(),
+        media_type="text/plain"
+    )
